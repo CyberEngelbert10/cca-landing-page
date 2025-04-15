@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "preview": "npm run pages:build && wrangler pages dev",
+    "deploy": "npm run pages:build && wrangler pages deploy",
+    "pages:deploy": "npx @cloudflare/next-on-pages deploy",
+    "pages:preview": "npx @cloudflare/next-on-pages preview",
+    "pages:publish": "npx @cloudflare/next-on-pages publish"
   },
   "dependencies": {
     "next": "15.3.0",
@@ -15,7 +21,9 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.12",
     "@tailwindcss/postcss": "^4",
+    "cross-spawn": "^7.0.6",
     "tailwindcss": "^4"
   }
 }
