@@ -1,2 +1,9 @@
 ﻿name = "cca-landing-page"
 compatibility_date = "2025-04-16"
+
+# Directory where the built static site is output by Next.js
+pages_build_output_dir = "out"
+
+# (Optional) Build command for Cloudflare Pages
+[build]
+command = "npm run build"
