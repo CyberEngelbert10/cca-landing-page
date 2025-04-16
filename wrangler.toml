@@ -1,7 +1,2 @@
-﻿# Specifies the name of your Cloudflare Pages project.
-# This MUST match the project name in your Cloudflare dashboard.
-name = "cca-landing-page"
-
-# Specifies the compatibility date for Wrangler and Cloudflare Workers runtime features.
-# Use a recent date (like today's date) or the date recommended by Cloudflare documentation.
+﻿name = "cca-landing-page"
 compatibility_date = "2025-04-16"
