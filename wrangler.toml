@@ -1,2 +1,1 @@
-name = "cca-landing-page"
-pages_build_output_dir = "./.vercel/output/static"
+﻿name = "cca-landing-page"pages_build_output_dir = "./.vercel/output/static"
