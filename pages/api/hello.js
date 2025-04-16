@@ -1,5 +1,8 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+export const runtime = 'edge';
 
-export default function handler(req, res) {
-  res.status(200).json({ name: "John Doe" });
+export default async function handler(request) {
+  return new Response(JSON.stringify({ text: 'Hello' }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
