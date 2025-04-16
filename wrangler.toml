@@ -5,7 +5,3 @@ name = "cca-landing-page"
 # Specifies the compatibility date for Wrangler and Cloudflare Workers runtime features.
 # Use a recent date (like today's date) or the date recommended by Cloudflare documentation.
 compatibility_date = "2025-04-16"
-
-# NOTE: We have REMOVED the pages_build_output_dir line.
-# This allows the Cloudflare Pages Next.js preset to automatically detect
-# the standard .next build output directory.
