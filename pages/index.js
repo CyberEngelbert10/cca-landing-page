@@ -1,115 +1,142 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import React, { useState, useEffect } from 'react';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const Countdown = () => {
+  // Set the target date and time (72 hours from now)
+  const targetDate = new Date('2025-04-21T00:00:52+02:00'); // Adjusted for CAT timezone (+02:00)
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
-export default function Home() {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  function calculateTimeLeft() {
+    const now = new Date();
+    const difference = targetDate.getTime() - now.getTime();
+
+    if (difference <= 0) {
+      return {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+        message: 'Website is now live!',
+      };
+    }
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    return { days, hours, minutes, seconds, message: '' };
+  }
+
+  const { days, hours, minutes, seconds, message } = timeLeft;
+
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              pages/index.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div style={styles.countdownContainer}>
+      <h1 style={styles.title}>
+        <span style={styles.goldText}>Copperbelt Chess Academy</span>
+      </h1>
+      <h2 style={styles.subtitle}>Website Coming Soon</h2>
+      {message ? (
+        <p style={styles.message}>{message}</p>
+      ) : (
+        <div style={styles.timerContainer}>
+          <div style={styles.timeUnit}>
+            <span style={styles.timeValue}>{days}</span>
+            <span style={styles.timeLabel}>Days</span>
+          </div>
+          <div style={styles.separator}>:</div>
+          <div style={styles.timeUnit}>
+            <span style={styles.timeValue}>{hours}</span>
+            <span style={styles.timeLabel}>Hours</span>
+          </div>
+          <div style={styles.separator}>:</div>
+          <div style={styles.timeUnit}>
+            <span style={styles.timeValue}>{minutes}</span>
+            <span style={styles.timeLabel}>Minutes</span>
+          </div>
+          <div style={styles.separator}>:</div>
+          <div style={styles.timeUnit}>
+            <span style={styles.timeValue}>{seconds}</span>
+            <span style={styles.timeLabel}>Seconds</span>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      )}
     </div>
   );
-}
+};
+
+const Home = () => (
+  <div style={styles.container}>
+    <Countdown />
+  </div>
+);
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '100vh',
+    padding: '2rem',
+    textAlign: 'center',
+    backgroundColor: '#f8f8f8', // Light background
+  },
+  countdownContainer: {
+    backgroundColor: '#fff',
+    padding: '3rem',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  },
+  title: {
+    fontSize: '2.5rem',
+    marginBottom: '1rem',
+  },
+  goldText: {
+    color: '#FFD700', // Gold color
+  },
+  subtitle: {
+    fontSize: '1.5rem',
+    color: '#555',
+    marginBottom: '2rem',
+  },
+  timerContainer: {
+    display: 'flex',
+    gap: '1rem',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  timeUnit: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  timeValue: {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  timeLabel: {
+    fontSize: '0.9rem',
+    color: '#777',
+  },
+  separator: {
+    fontSize: '2rem',
+    color: '#333',
+  },
+  message: {
+    fontSize: '1.2rem',
+    color: 'green',
+    marginTop: '1rem',
+  },
+};
+
+export default Home;
